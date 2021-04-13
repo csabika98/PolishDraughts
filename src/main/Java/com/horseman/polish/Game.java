@@ -21,6 +21,7 @@ public class Game {
             }
         }
         Board board = new Board(n);
+        board.displayBoard();
         //Start();
     }
 
