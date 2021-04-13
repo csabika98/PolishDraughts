@@ -1,6 +1,5 @@
 package com.horseman.polish;
 
-import com.sun.tools.jdeprscan.scan.Scan;
 
 import java.util.Scanner;
 
