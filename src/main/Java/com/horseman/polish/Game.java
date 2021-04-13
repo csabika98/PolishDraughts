@@ -13,7 +13,7 @@ public class Game {
             System.out.print("Board size between 10-20: ");
             n = scanner.nextInt();
             //check valid input
-            if (n > 20 || n < 10){
+            if (n > 20 || n < 10 || n % 2 != 0){
                 System.out.println("Size out of range");
             }else{
                 //break out of loop and continue to create the board
@@ -21,16 +21,15 @@ public class Game {
             }
         }
         Board board = new Board(n);
+        board.fillPawns(" X ",2);
+        board.fillPawns(" O ",board.getBoard().length);
         board.displayBoard();
         //Start();
     }
 
-    static void Start(int[][] board){
+    static void Start(String[][] board){
         //starts game between players
     }
-
-    //Welcome message
-    //Ask user for board size(between 10-20)*Handle out of range
 
 
     //playRound(); *Checks who's playing *Checks if there's a winner
