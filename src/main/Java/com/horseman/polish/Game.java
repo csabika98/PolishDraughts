@@ -20,7 +20,7 @@ public class Game {
                 break;
             }
         }
-        //Board board = new Board(n);
+        Board board = new Board(n);
         //Start();
     }
 
