@@ -1,7 +1,5 @@
 package com.horseman.polish;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Game {
@@ -53,32 +51,8 @@ public class Game {
         //printResult(player,isWinner)
     }
 
-    int convertChar(String coordinateRow) {
-
-        Map<String, Integer> abc = new HashMap<String, Integer>() {{
-            put("A", 0);
-            put("B", 1);
-            put("C", 2);
-            put("D", 3);
-            put("E", 4);
-            put("F", 5);
-            put("G", 6);
-            put("H", 7);
-            put("I", 8);
-            put("J", 9);
-            put("K", 10);
-            put("L", 11);
-            put("M", 12);
-            put("N", 13);
-            put("O", 14);
-            put("P", 15);
-            put("Q", 16);
-            put("R", 17);
-            put("S", 18);
-            put("T", 19);
-            put("U", 20);
-        }};
-        return abc.get(coordinateRow);
+    int convertChar(char coordinateRow) {
+        return (int) coordinateRow -97;
     }
 
     void movePawn(int x, int y, int player) {
@@ -133,7 +107,7 @@ public class Game {
             if (temp_x.length() > 1) {
                 System.out.println("Row out of range");
             } else {
-                x = convertChar(temp_x);
+                x = convertChar(temp_x.charAt(0));
                 break;
             }
         }
@@ -151,16 +125,6 @@ public class Game {
             //ask user input *Checks(); *Checks if valid position from user and within board
         }
         return new int[]{x, y, player};
-    }
-
-    boolean checkForWinner(Pawn[][] board) {
-        //return if someone win or not
-        return true;
-    }
-
-    boolean checkForDraw(Pawn[][] board) {
-        //return if it's a tie
-        return true;
     }
 
     void printResult(int player, boolean isWinner) {
