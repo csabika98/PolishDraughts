@@ -1,6 +1,5 @@
 package com.horseman.polish;
 
-
 import java.util.Scanner;
 
 public class Game {
@@ -21,8 +20,7 @@ public class Game {
             }
         }
         Board board = new Board(n);
-        board.fillPawns(" X ",2);
-        board.fillPawns(" O ",board.getBoard().length);
+        board.fillPawns();
         board.displayBoard();
         //Start();
     }

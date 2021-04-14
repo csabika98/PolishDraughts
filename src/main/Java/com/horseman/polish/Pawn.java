@@ -5,7 +5,7 @@ public class Pawn {
     private String color;
 
     Pawn(String color, int x, int y) {
-        this.setColor("black");
+        this.setColor(color);
         Coordinates.x = x;
         Coordinates.y = y;
     }
