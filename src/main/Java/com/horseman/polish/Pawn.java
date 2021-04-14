@@ -17,7 +17,7 @@ public class Pawn {
         return this.player;
     }
     public boolean getPlayerOne() {
-        return player.equals(1);
+        return player == 1;
     }
 
     public void setCoordinates(int x, int y) {

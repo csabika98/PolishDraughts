@@ -30,15 +30,15 @@ public class Game {
         boolean isWinner = false;
         Board board = Board.getInstance(n);
         board.fillPawns();
-
+        board.displayBoard(board.getBoard());
         while (true) {
             playRound(player, board.getBoard()); // wat?
 
-            if (checkForWinner) {
+            if (checkForWinner()) {
                 isWinner = true;
                 break;
                 //player won
-            } else if (checkForDraw) {
+            } else if (checkForDraw()) {
                 break;
                 //last round before tie
             }
@@ -98,18 +98,18 @@ public class Game {
 
     void playRound(int player, Pawn[][] board) {
         boolean isWinner = false;
-
+        int[] pawnPosition;
+        int[] moveCoordinates;
         while (true) {
-            int[] pawnPosition = getCoordinates(player);
-            //int[] moveCoordinates = getMoveCoordinates();
+            pawnPosition = getCoordinates(player);
+            moveCoordinates = getCoordinates(player);
             if (tryToMakeMove(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2])) {
                 break;
-                ;
             }
         }
 
         if (isNextStepHit(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2])) {
-            //changePosition(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2],true)
+            changePosition(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2], true);
         } else {
             changePosition(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2], false);
         }
@@ -155,10 +155,12 @@ public class Game {
 
     boolean checkForWinner(Pawn[][] board) {
         //return if someone win or not
+        return true;
     }
 
     boolean checkForDraw(Pawn[][] board) {
         //return if it's a tie
+        return true;
     }
 
     void printResult(int player, boolean isWinner) {
@@ -169,4 +171,17 @@ public class Game {
         }
     }
 
+    boolean tryToMakeMove(int pawnPosX, int pawnPosY, int movePosX, int movePosY, int player) {
+        return true;
+    }
+
+    boolean isNextStepHit(int pawnPosX, int pawnPosY, int movePosX, int movePosY, int player) {
+        return true;
+    }
+    boolean checkForWinner() {
+        return true;
+    }
+    boolean checkForDraw() {
+        return true;
+    }
 }
