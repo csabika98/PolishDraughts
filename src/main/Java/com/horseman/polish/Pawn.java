@@ -2,22 +2,22 @@ package com.horseman.polish;
 
 public class Pawn {
 
-    private String color;
+    private int player;
 
-    Pawn(String color, int x, int y) {
-        this.setColor(color);
+    Pawn(int player, int x, int y) {
+        this.setPlayer(player);
         Coordinates.x = x;
         Coordinates.y = y;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setPlayer(int player) {
+        this.player = player;
     }
-    public String getColor() {
-        return this.color;
+    public int getPlayer() {
+        return this.player;
     }
-    public boolean getIsWhite() {
-        return color.equals("white");
+    public boolean getPlayerOne() {
+        return player.equals(1);
     }
 
     public void setCoordinates(int x, int y) {

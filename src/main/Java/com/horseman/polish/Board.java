@@ -2,11 +2,19 @@ package com.horseman.polish;
 
 
 public class Board {
-    private Pawn[][] board;
+    private Pawn[][] board = null;
+    private static Board kecske;
 
-    public Board(int n) {
+    private Board(int n) {
         Pawn[][] board = new Pawn[n][n];
         this.setBoard(board);
+    }
+
+    public static Board getInstance(int n) {
+        if (kecske == null){
+            kecske = new Board(n);
+        }
+        return kecske;
     }
 
     public Pawn[][] getBoard() {
@@ -21,24 +29,25 @@ public class Board {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 if (i == 0 && j % 2 == 0) {
-                    board[i][j] = new Pawn("white", i, j);
+                    board[i][j] = new Pawn(1, i, j);
                 } else if (i == 1 && j % 2 != 0) {
-                    board[i][j] = new Pawn("white", i, j);
+                    board[i][j] = new Pawn(1, i, j);
                 } else if (i == 2 && j % 2 == 0) {
-                    board[i][j] = new Pawn("white", i, j);
+                    board[i][j] = new Pawn(1, i, j);
                 } else if (i == getBoard().length - 1 && j % 2 != 0) {
-                    board[i][j] = new Pawn("black", i, j);
+                    board[i][j] = new Pawn(2, i, j);
                 } else if (i == getBoard().length - 2 && j % 2 == 0) {
-                    board[i][j] = new Pawn("black", i, j);
+                    board[i][j] = new Pawn(2, i, j);
                 } else if (i == getBoard().length - 3 && j % 2 != 0) {
-                    board[i][j] = new Pawn("black", i, j);
+                    board[i][j] = new Pawn(2, i, j);
                 }
             }
         }
     }
 
-    public String toString(Pawn[][] board){
+    public String toString(Pawn[][] board) {
         //convert board to string
+        return null;
     }
 
     // Size can upto 15
@@ -50,7 +59,7 @@ public class Board {
         for (int i = 0; i < board[0].length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (board[i][j] != null) {
-                    if (board[i][j].getIsWhite()) {
+                    if (board[i][j].getPlayerOne()) {
                         System.out.print(" O ");
                     } else {
                         System.out.print(" X ");

@@ -27,11 +27,11 @@ public class Game {
 
     void Start() {
         int player = 1;
-        Board board = new Board(n);
+        Board board = Board.getInstance(n);
         board.fillPawns();
 
         while (true) {
-            playRound(player,board); // wat?
+            playRound(player, board.getBoard()); // wat?
 
             //switch player
             if (player == 1) {
@@ -71,20 +71,49 @@ public class Game {
         return abc.get(coordinateRow);
     }
 
-    void playRound(int player, Board[][] board) {
+    void movePawn(int x,int y, int player){
+        Board board = Board.getInstance(n);
+        board.getBoard()[x][y] = new Pawn(player,x,y);
+    }
+
+    void changePosition(int prevPosX, int prevPosY, int nextPosX, int nextPosY, int player, boolean hit) {
+        movePawn(nextPosX, nextPosY, player);
+        //removePawn(prevPosX, prevPosY);
+
+        if (hit) {
+            //removePawn();
+        }
+
+    }
+
+    void playRound(int player, Pawn[][] board) {
         boolean isWinner = false;
 
-        int[] coordinates = getCoordinates(player);
-        if (tryToMakeMove(coordinates[0], coordinates[1], coordinates[3])) {
-            //movePawn()
-            board.displayBoard(board);
-            if (checkForWinner) {
-                isWinner = true;
-                //player won
-            } else if (checkForDraw) {
-                //last round before tie
+        while (true) {
+            int[] pawnPosition = getCoordinates(player);
+            //int[] moveCoordinates = getMoveCoordinates();
+            if (tryToMakeMove(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2])) {
+                break;
+                ;
             }
         }
+
+        if (isNextStepHit(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2])) {
+            //changePosition(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2],true)
+        } else {
+            changePosition(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2], false);
+        }
+
+        //movePawn(moveCoordinates[0], moveCoordinates[1], coordinates[3]);
+        //removePawn()
+        board.displayBoard(board);
+        if (checkForWinner) {
+            isWinner = true;
+            //player won
+        } else if (checkForDraw) {
+            //last round before tie
+        }
+
 
     }
 
@@ -96,29 +125,26 @@ public class Game {
         int x;
         int y;
 
+        System.out.print("Input row: ");
         while (true) {
+            temp_x = scanner.nextLine();
+            if (temp_x.length() > 1) {
+                System.out.println("Row out of range");
+            } else {
+                x = convertChar(temp_x);
+                break;
+            }
+        }
 
-            System.out.print("Input row: ");
-            while (true) {
-                temp_x = scanner.nextLine();
-                if (temp_x.length() > 1) {
-                    System.out.println("Row out of range");
-                } else {
-                    x = convertChar(temp_x);
-                    break;
-                }
+        System.out.print("Input column: ");
+        while (true) {
+            y = scanner.nextInt();
+            if (y < 0 || y > n) {
+                System.out.println("Column out of range");
+            } else {
+                break;
             }
 
-            System.out.print("Input column: ");
-            while (true) {
-                y = scanner.nextInt();
-                if (y < 0 || y > n) {
-                    System.out.println("Column out of range");
-                } else {
-                    break;
-                }
-            }
-            break;
 
             //ask user input *Checks(); *Checks if valid position from user and within board
         }
