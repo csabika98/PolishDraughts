@@ -31,7 +31,7 @@ public class Game {
         board.displayBoard(board.getBoard());
         while (true) {
             playRound(player, board.getBoard()); // wat?
-
+            board.displayBoard(board.getBoard());
             if (checkForWinner()) {
                 isWinner = true;
                 break;
@@ -59,14 +59,18 @@ public class Game {
         Board board = Board.getInstance(n);
         board.getBoard()[x][y] = new Pawn(player, x, y);
     }
+    void removePawn(int x, int y) {
+        Board board = Board.getInstance(n);
+        board.getBoard()[x][y] = null;
+    }
 
     void changePosition(int prevPosX, int prevPosY, int nextPosX, int nextPosY, int player, boolean hit) {
         movePawn(nextPosX, nextPosY, player);
-        //removePawn(prevPosX, prevPosY);
+        removePawn(prevPosX, prevPosY);
 
-        if (hit) {
-            //removePawn();
-        }
+//        if (hit) {
+//            //removePawn();
+//        }
 
     }
 
@@ -74,13 +78,10 @@ public class Game {
         boolean isWinner = false;
         int[] pawnPosition;
         int[] moveCoordinates;
-        while (true) {
-            pawnPosition = getCoordinates(player);
-            moveCoordinates = getCoordinates(player);
-            if (tryToMakeMove(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2])) {
-                break;
-            }
-        }
+        do {
+            pawnPosition = getCoordinates(player, "chosen pawn");
+            moveCoordinates = getCoordinates(player, "position to move");
+        } while (!tryToMakeMove(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2]));
 
         if (isNextStepHit(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2])) {
             changePosition(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2], true);
@@ -93,7 +94,7 @@ public class Game {
         //board.displayBoard(board);
     }
 
-    int[] getCoordinates(int player) {
+    int[] getCoordinates(int player, String request) {
         Scanner scanner = new Scanner(System.in);
 
         String temp_x;
@@ -101,19 +102,19 @@ public class Game {
         int x;
         int y;
 
-        System.out.print("Input row: ");
         while (true) {
+            System.out.print("Select " + request + " first coordinate (eg.: a, b, or c...): ");
             temp_x = scanner.nextLine();
             if (temp_x.length() > 1) {
                 System.out.println("Row out of range");
             } else {
-                x = convertChar(temp_x.charAt(0));
+                x = convertChar(temp_x.toLowerCase().charAt(0));
                 break;
             }
         }
 
-        System.out.print("Input column: ");
         while (true) {
+            System.out.print("Select " + request + " second coordinate (eg.: 1, 2 or 3...): ");
             y = scanner.nextInt();
             if (y < 0 || y > n) {
                 System.out.println("Column out of range");
@@ -121,10 +122,9 @@ public class Game {
                 break;
             }
 
-
             //ask user input *Checks(); *Checks if valid position from user and within board
         }
-        return new int[]{x, y, player};
+        return new int[]{x, y-1, player};
     }
 
     void printResult(int player, boolean isWinner) {
@@ -136,6 +136,25 @@ public class Game {
     }
 
     boolean tryToMakeMove(int pawnPosX, int pawnPosY, int movePosX, int movePosY, int player) {
+        // cuurent pos is pawn & own
+        Board board = Board.getInstance(n);
+        if (board.getBoard()[pawnPosX][pawnPosY] == null || board.getBoard()[pawnPosX][pawnPosY].getPlayer() != player) {
+            return false;
+        }
+        // next pos null
+        if (board.getBoard()[movePosX][movePosY] != null){
+            return false;
+        }
+        // only one step
+        if (player == 1){
+            if ((movePosY != pawnPosY - 1 || movePosY != pawnPosY +1) && movePosX != pawnPosX + 1) {
+                    return false;
+            }
+        } else if (player == 2){
+            if ((movePosY != pawnPosY - 1 || movePosY != pawnPosY +1) && movePosX != pawnPosX - 1) {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -143,9 +162,9 @@ public class Game {
         return true;
     }
     boolean checkForWinner() {
-        return true;
+        return false;
     }
     boolean checkForDraw() {
-        return true;
+        return false;
     }
 }
