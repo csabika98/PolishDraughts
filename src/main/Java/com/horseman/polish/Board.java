@@ -37,16 +37,23 @@ public class Board {
         }
     }
 
+    public String toString(Pawn[][] board){
+        //convert board to string
+    }
+
     // Size can upto 15
-    public void displayBoard() {
+    public void displayBoard(Pawn[][] board) {
+        //toString(board);
+        //System print board string
+
         String[] letters = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"};
         for (int i = 0; i < board[0].length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (board[i][j] != null) {
                     if (board[i][j].getIsWhite()) {
-                        System.out.print(" 1 ");
+                        System.out.print(" O ");
                     } else {
-                        System.out.print(" 2 ");
+                        System.out.print(" X ");
                     }
                 } else {
                     if (i % 2 != 0) {
