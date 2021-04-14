@@ -8,6 +8,7 @@ public class Game {
     static int n;
 
     public static void main(String[] args) {
+        Game game = new Game();
         while (true) {
             Scanner scanner = new Scanner(System.in);
 
@@ -21,26 +22,16 @@ public class Game {
                 break;
             }
         }
-        Board board = new Board(n);
-        board.fillPawns();
-        //Start(board);
+        game.Start();
     }
 
-    void Start(Pawn[][] board) {
+    void Start() {
         int player = 1;
-        boolean isWinner = false;
+        Board board = new Board(n);
+        board.fillPawns();
 
         while (true) {
-            int[] coordinates = playRound(player); //*Checks who's playing
-            // *tryToMakeMove(coordinates[0],coordinates[1],coordinates[3]) *mark new position within the board boundaries
-            //board.displayBoard(board);
-
-            if (checkForWinner) {
-                isWinner = true;
-                break;
-            } else if (checkForDraw) {
-                break;
-            }
+            playRound(player,board); // wat?
 
             //switch player
             if (player == 1) {
@@ -80,7 +71,24 @@ public class Game {
         return abc.get(coordinateRow);
     }
 
-    int[] playRound(int player) {
+    void playRound(int player, Board[][] board) {
+        boolean isWinner = false;
+
+        int[] coordinates = getCoordinates(player);
+        if (tryToMakeMove(coordinates[0], coordinates[1], coordinates[3])) {
+            //movePawn()
+            board.displayBoard(board);
+            if (checkForWinner) {
+                isWinner = true;
+                //player won
+            } else if (checkForDraw) {
+                //last round before tie
+            }
+        }
+
+    }
+
+    int[] getCoordinates(int player) {
         Scanner scanner = new Scanner(System.in);
 
         String temp_x;
@@ -110,10 +118,9 @@ public class Game {
                     break;
                 }
             }
+            break;
 
             //ask user input *Checks(); *Checks if valid position from user and within board
-            //assign x and y values
-            //then break
         }
         return new int[]{x, y, player};
     }
