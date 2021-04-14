@@ -27,11 +27,21 @@ public class Game {
 
     void Start() {
         int player = 1;
+        boolean isWinner = false;
         Board board = Board.getInstance(n);
         board.fillPawns();
 
         while (true) {
             playRound(player, board.getBoard()); // wat?
+
+            if (checkForWinner) {
+                isWinner = true;
+                break;
+                //player won
+            } else if (checkForDraw) {
+                break;
+                //last round before tie
+            }
 
             //switch player
             if (player == 1) {
@@ -71,9 +81,9 @@ public class Game {
         return abc.get(coordinateRow);
     }
 
-    void movePawn(int x,int y, int player){
+    void movePawn(int x, int y, int player) {
         Board board = Board.getInstance(n);
-        board.getBoard()[x][y] = new Pawn(player,x,y);
+        board.getBoard()[x][y] = new Pawn(player, x, y);
     }
 
     void changePosition(int prevPosX, int prevPosY, int nextPosX, int nextPosY, int player, boolean hit) {
@@ -106,15 +116,7 @@ public class Game {
 
         //movePawn(moveCoordinates[0], moveCoordinates[1], coordinates[3]);
         //removePawn()
-        board.displayBoard(board);
-        if (checkForWinner) {
-            isWinner = true;
-            //player won
-        } else if (checkForDraw) {
-            //last round before tie
-        }
-
-
+        //board.displayBoard(board);
     }
 
     int[] getCoordinates(int player) {
