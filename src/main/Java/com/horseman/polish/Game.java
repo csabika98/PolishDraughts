@@ -68,10 +68,11 @@ public class Game {
         movePawn(nextPosX, nextPosY, player);
         removePawn(prevPosX, prevPosY);
 
-//        if (hit) {
-//            //removePawn();
-//        }
-
+        if (hit) {
+            int enemyX = Math.abs(prevPosX-nextPosX);
+            int enemyY = Math.abs(prevPosY-nextPosY);
+            removePawn(enemyX,enemyY);
+        }
     }
 
     void playRound(int player, Pawn[][] board) {
@@ -147,11 +148,11 @@ public class Game {
         }
         // only one step
         if (player == 1){
-            if ((movePosY != pawnPosY - 1 || movePosY != pawnPosY +1) && movePosX != pawnPosX + 1) {
+            if (((movePosY != pawnPosY - 1 || movePosY != pawnPosY +1) && movePosX != pawnPosX + 1) || ((movePosY != pawnPosY - 2 || movePosY != pawnPosY + 2) && movePosX != pawnPosX + 2)) {
                     return false;
             }
         } else if (player == 2){
-            if ((movePosY != pawnPosY - 1 || movePosY != pawnPosY +1) && movePosX != pawnPosX - 1) {
+            if (((movePosY != pawnPosY - 1 || movePosY != pawnPosY +1) && movePosX != pawnPosX - 1) ||  ((movePosY != pawnPosY - 2 || movePosY != pawnPosY +1) && movePosX != pawnPosX - 2)){
                 return false;
             }
         }
@@ -159,7 +160,20 @@ public class Game {
     }
 
     boolean isNextStepHit(int pawnPosX, int pawnPosY, int movePosX, int movePosY, int player) {
-        return true;
+        Board board = Board.getInstance(n);
+        int enemyX = Math.abs(pawnPosX-movePosX);
+        int enemyY = Math.abs(pawnPosY-movePosY);
+        if (player == 1 && ((movePosY == pawnPosY - 2 || movePosY == pawnPosY + 2) && movePosX == pawnPosX + 2)) {
+            if (board.getBoard()[enemyX][enemyY]!=null && board.getBoard()[enemyX][enemyY].getPlayer() == 2){
+                return true;
+            }
+        } else if(player == 2 && ((movePosY == pawnPosY - 2 || movePosY == pawnPosY + 2) && movePosX == pawnPosX - 2)){
+            if (board.getBoard()[enemyX][enemyY]!=null && board.getBoard()[enemyX][enemyY].getPlayer() == 1) {
+                return true;
+            }
+        }
+        return false;
+
     }
     boolean checkForWinner() {
         return false;
