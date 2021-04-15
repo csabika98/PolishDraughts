@@ -19,8 +19,8 @@ public class Game {
                 System.out.println("Size out of range");
             } else {
                 //break out of loop and continue to create the board
-                player_1_pawn = (n*15)/10;
-                player_2_pawn = (n*15)/10;
+                player_1_pawn = (n * 15) / 10;
+                player_2_pawn = (n * 15) / 10;
                 break;
             }
         }
@@ -54,7 +54,7 @@ public class Game {
                 player = 1;
             }
         }
-        printResult(player,isWinner);
+        printResult(player, isWinner);
     }
 
     int convertChar(char coordinateRow) {
@@ -117,9 +117,9 @@ public class Game {
         while (true) {
             System.out.print("Player " + player + ": " + request + " first coordinate (eg.: a, b, or c...): ");
             temp_x = scanner.nextLine();
-            if (temp_x.equals("win")){
+            if (temp_x.equals("win")) {
                 player_2_pawn = 0;
-            }else{
+            } else {
                 if (temp_x.length() > 1) {
                     System.out.println("Row out of range");
                 } else {
@@ -161,7 +161,7 @@ public class Game {
                     "░░░██║░░░██╔══██║██╔══╝░░  ░░████╔═████║░██║██║╚████║██║╚████║██╔══╝░░██╔══██╗\n" +
                     "░░░██║░░░██║░░██║███████╗  ░░╚██╔╝░╚██╔╝░██║██║░╚███║██║░╚███║███████╗██║░░██║\n" +
                     "░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝");
-        } else if(isWinner && player == 2) {
+        } else if (isWinner && player == 2) {
             System.out.println("\n" +
                     "██████╗░██╗░░░░░░█████╗░██╗░░░██╗███████╗██████╗░  ██████╗░  ██╗░██████╗\n" +
                     "██╔══██╗██║░░░░░██╔══██╗╚██╗░██╔╝██╔════╝██╔══██╗  ╚════██╗  ██║██╔════╝\n" +
@@ -176,7 +176,7 @@ public class Game {
                     "░░░██║░░░██╔══██║██╔══╝░░  ░░████╔═████║░██║██║╚████║██║╚████║██╔══╝░░██╔══██╗\n" +
                     "░░░██║░░░██║░░██║███████╗  ░░╚██╔╝░╚██╔╝░██║██║░╚███║██║░╚███║███████╗██║░░██║\n" +
                     "░░░╚═╝░░░╚═╝░░╚═╝╚══════╝  ░░░╚═╝░░░╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░░╚══╝╚══════╝╚═╝░░╚═╝");
-        }else{
+        } else {
             System.out.println("\n" +
                     "██╗████████╗██╗░██████╗  ░█████╗░  ████████╗██╗███████╗\n" +
                     "██║╚══██╔══╝╚█║██╔════╝  ██╔══██╗  ╚══██╔══╝██║██╔════╝\n" +
@@ -241,7 +241,7 @@ public class Game {
         return false;
     }
 
-    boolean checkForDraw() {
-        return false;
+    boolean checkForDraw(int player1, int player2) {
+        return player1== 1 && player2 == 1;
     }
 }
