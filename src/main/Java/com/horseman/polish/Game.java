@@ -9,6 +9,13 @@ public class Game {
 
     public static void main(String[] args) {
         Game game = new Game();
+        System.out.println("\n" +
+                "██████╗░░█████╗░██╗░░░░░██╗░██████╗██╗░░██╗  ██████╗░██████╗░░█████╗░██╗░░░██╗░██████╗░██╗░░██╗████████╗░██████╗\n" +
+                "██╔══██╗██╔══██╗██║░░░░░██║██╔════╝██║░░██║  ██╔══██╗██╔══██╗██╔══██╗██║░░░██║██╔════╝░██║░░██║╚══██╔══╝██╔════╝\n" +
+                "██████╔╝██║░░██║██║░░░░░██║╚█████╗░███████║  ██║░░██║██████╔╝███████║██║░░░██║██║░░██╗░███████║░░░██║░░░╚█████╗░\n" +
+                "██╔═══╝░██║░░██║██║░░░░░██║░╚═══██╗██╔══██║  ██║░░██║██╔══██╗██╔══██║██║░░░██║██║░░╚██╗██╔══██║░░░██║░░░░╚═══██╗\n" +
+                "██║░░░░░╚█████╔╝███████╗██║██████╔╝██║░░██║  ██████╔╝██║░░██║██║░░██║╚██████╔╝╚██████╔╝██║░░██║░░░██║░░░██████╔╝\n" +
+                "╚═╝░░░░░░╚════╝░╚══════╝╚═╝╚═════╝░╚═╝░░╚═╝  ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░");
         while (true) {
             Scanner scanner = new Scanner(System.in);
 
@@ -32,17 +39,15 @@ public class Game {
         boolean isWinner = false;
         Board board = Board.getInstance(n);
         board.fillPawns();
-        board.displayBoard(board.getBoard());
+        board.displayBoard(board.getBoard(), player_1_pawn, player_2_pawn);
         while (true) {
-            System.out.println("Player 1 Pawns: " + player_1_pawn);
-            System.out.println("Player 2 Pawns: " + player_2_pawn);
             playRound(player, board.getBoard()); // wat?
-            board.displayBoard(board.getBoard());
+            board.displayBoard(board.getBoard(), player_1_pawn, player_2_pawn);
             if (checkForWinner(player_1_pawn, player_2_pawn)) {
                 isWinner = true;
                 break;
                 //player won
-            } else if (checkForDraw(player_1_pawn,player_2_pawn)) {
+            } else if (checkForDraw(player_1_pawn, player_2_pawn)) {
                 break;
                 //last round before tie
             }
@@ -242,6 +247,6 @@ public class Game {
     }
 
     boolean checkForDraw(int player1, int player2) {
-        return player1== 1 && player2 == 1;
+        return player1 == 1 && player2 == 1;
     }
 }

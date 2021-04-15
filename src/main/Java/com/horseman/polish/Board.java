@@ -11,7 +11,7 @@ public class Board {
     }
 
     public static Board getInstance(int n) {
-        if (kecske == null){
+        if (kecske == null) {
             kecske = new Board(n);
         }
         return kecske;
@@ -46,10 +46,9 @@ public class Board {
     }
 
 
-
-    public void displayBoard(Pawn[][] board) {
-        String[] numbers = {"   ","1  ","2  ","3  ","4  ","5  ","6  ","7  ","8  ","9 ","10 ","11 ","12 ","13 ","14 ","15 ","16 ","17 ","18 ","19 ","20  "};
-        for (int i =0; i<=1; i++) {
+    public void displayBoard(Pawn[][] board, int player1, int player2) {
+        String[] numbers = {"   ", "1  ", "2  ", "3  ", "4  ", "5  ", "6  ", "7  ", "8  ", "9 ", "10 ", "11 ", "12 ", "13 ", "14 ", "15 ", "16 ", "17 ", "18 ", "19 ", "20  "};
+        for (int i = 0; i <= 1; i++) {
             System.out.println();
             for (int j = 0; j <= board.length; j++) {
                 if (i == 0) {
@@ -81,6 +80,15 @@ public class Board {
                         } else {
                             System.out.print("███");
                         }
+                    }
+                }
+                if (i == 0) {
+                    if (j == board.length - 1) {
+                        System.out.print(" \033[0;34m Player 1 pawns: \033[0m" + player1);
+                    }
+                } else if (i == board[0].length-1) {
+                    if (j == board.length - 1) {
+                        System.out.print(" \033[0;33m Player 2 pawns: \033[0m" + player2);
                     }
                 }
             }
