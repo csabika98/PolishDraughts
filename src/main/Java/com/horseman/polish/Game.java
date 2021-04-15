@@ -69,9 +69,19 @@ public class Game {
         removePawn(prevPosX, prevPosY);
 
         if (hit) {
-            int enemyX = Math.abs(prevPosX-nextPosX);
-            int enemyY = Math.abs(prevPosY-nextPosY);
-            removePawn(enemyX,enemyY);
+            int enemyX = 0;
+            int enemyY = 0;
+            if (prevPosY < nextPosY){
+                enemyY = prevPosY + 1;
+            } else if (prevPosY > nextPosY) {
+                enemyY = prevPosY - 1;
+            }
+            if(player==1){
+                enemyX = prevPosX +1;
+            } else if (player==2){
+                enemyX = prevPosX -1;
+            }
+            removePawn(enemyX, enemyY);
         }
     }
 
@@ -139,38 +149,43 @@ public class Game {
     boolean tryToMakeMove(int pawnPosX, int pawnPosY, int movePosX, int movePosY, int player) {
         // cuurent pos is pawn & own
         Board board = Board.getInstance(n);
-        if (board.getBoard()[pawnPosX][pawnPosY] == null || board.getBoard()[pawnPosX][pawnPosY].getPlayer() != player) {
-            return false;
+        if (board.getBoard()[pawnPosX][pawnPosY].getPlayer() == player && board.getBoard()[movePosX][movePosY] == null) {
+            if (player == 1){
+                if ((movePosY == pawnPosY - 1 || movePosY == pawnPosY +1) && movePosX == pawnPosX + 1) {
+                    return true;
+                } else if ((movePosY == pawnPosY - 2 || movePosY == pawnPosY +2) && movePosX == pawnPosX + 2){
+                    return true;
+                }
+            } else if (player == 2){
+                if ((movePosY == pawnPosY - 1 || movePosY == pawnPosY +1) && movePosX == pawnPosX - 1) {
+                    return true;
+                } else if ((movePosY == pawnPosY - 2 || movePosY == pawnPosY +2) && movePosX == pawnPosX - 2){
+                    return true;
+                }
+            }
         }
         // next pos null
-        if (board.getBoard()[movePosX][movePosY] != null){
-            return false;
-        }
+
         // only one step
-        if (player == 1){
-            if (((movePosY != pawnPosY - 1 || movePosY != pawnPosY +1) && movePosX != pawnPosX + 1) || ((movePosY != pawnPosY - 2 || movePosY != pawnPosY + 2) && movePosX != pawnPosX + 2)) {
-                    return false;
-            }
-        } else if (player == 2){
-            if (((movePosY != pawnPosY - 1 || movePosY != pawnPosY +1) && movePosX != pawnPosX - 1) ||  ((movePosY != pawnPosY - 2 || movePosY != pawnPosY +1) && movePosX != pawnPosX - 2)){
-                return false;
-            }
-        }
-        return true;
+
+        return false;
     }
 
     boolean isNextStepHit(int pawnPosX, int pawnPosY, int movePosX, int movePosY, int player) {
         Board board = Board.getInstance(n);
-        int enemyX = Math.abs(pawnPosX-movePosX);
-        int enemyY = Math.abs(pawnPosY-movePosY);
+        int enemyX = 0;
+        int enemyY = 0;
+        if (pawnPosY< movePosY){
+            enemyY = pawnPosY + 1;
+        } else if (pawnPosY > movePosY) {
+            enemyY = pawnPosY - 1;
+        }
         if (player == 1 && ((movePosY == pawnPosY - 2 || movePosY == pawnPosY + 2) && movePosX == pawnPosX + 2)) {
-            if (board.getBoard()[enemyX][enemyY]!=null && board.getBoard()[enemyX][enemyY].getPlayer() == 2){
-                return true;
-            }
+            enemyX = pawnPosX + 1;
+            return board.getBoard()[enemyX][enemyY] != null && board.getBoard()[enemyX][enemyY].getPlayer() == 2;
         } else if(player == 2 && ((movePosY == pawnPosY - 2 || movePosY == pawnPosY + 2) && movePosX == pawnPosX - 2)){
-            if (board.getBoard()[enemyX][enemyY]!=null && board.getBoard()[enemyX][enemyY].getPlayer() == 1) {
-                return true;
-            }
+            enemyX = pawnPosX - 1;
+            return board.getBoard()[enemyX][enemyY] != null && board.getBoard()[enemyX][enemyY].getPlayer() == 1;
         }
         return false;
 
