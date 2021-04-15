@@ -42,7 +42,7 @@ public class Game {
                 isWinner = true;
                 break;
                 //player won
-            } else if (checkForDraw()) {
+            } else if (checkForDraw(player_1_pawn,player_2_pawn)) {
                 break;
                 //last round before tie
             }
