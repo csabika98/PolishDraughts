@@ -45,19 +45,23 @@ public class Board {
         }
     }
 
-    public String toString(Pawn[][] board) {
-        //convert board to string
-        return null;
-    }
 
     // Size can upto 15
     public void displayBoard(Pawn[][] board) {
-        //toString(board);
-        //System print board string
-
-        String[] letters = {" ", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"};
+        String[] letters = {"   ","1  ","2  ","3  ","4  ","5  ","6  ","7  ","8  ","9 ","10 ","11 ","12 ","13 ","14 ","15 ","16 ","17 ","18 ","19 ","20  "};
+        for (int i =0; i<=1; i++) {
+            System.out.println("");
+            for (int j = 0; j <= board.length; j++) {
+                //System.out.println();
+                if (i == 0) {
+                    System.out.print(letters[j]);
+                }
+            }
+        }
         for (int i = 0; i < board[0].length; i++) {
+            System.out.print((char) ('A' + i) + " ");
             for (int j = 0; j < board.length; j++) {
+                System.out.print("");
                 if (board[i][j] != null) {
                     if (board[i][j].getPlayerOne()) {
                         System.out.print(" O ");
