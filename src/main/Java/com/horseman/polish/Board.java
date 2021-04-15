@@ -63,9 +63,9 @@ public class Board {
                 System.out.print("");
                 if (board[i][j] != null) {
                     if (board[i][j].getPlayerOne()) {
-                        System.out.print(" O ");
+                        System.out.print("\033[0;34m O \033[0m");
                     } else {
-                        System.out.print(" X ");
+                        System.out.print("\033[0;33m O \033[0m");
                     }
                 } else {
                     if (i % 2 != 0) {
