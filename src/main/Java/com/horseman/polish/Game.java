@@ -96,14 +96,12 @@ public class Game {
 
     int[] getCoordinates(int player, String request) {
         Scanner scanner = new Scanner(System.in);
-
         String temp_x;
-
         int x;
         int y;
 
         while (true) {
-            System.out.print("Select " + request + " first coordinate (eg.: a, b, or c...): ");
+            System.out.print("Player "+ player + ": " + request + " first coordinate (eg.: a, b, or c...): ");
             temp_x = scanner.nextLine();
             if (temp_x.length() > 1) {
                 System.out.println("Row out of range");
@@ -114,7 +112,8 @@ public class Game {
         }
 
         while (true) {
-            System.out.print("Select " + request + " second coordinate (eg.: 1, 2 or 3...): ");
+
+            System.out.print("Player " + player + ": " + request + " second coordinate (eg.: 1, 2 or 3...): ");
             y = scanner.nextInt();
             if (y < 0 || y > n) {
                 System.out.println("Column out of range");
