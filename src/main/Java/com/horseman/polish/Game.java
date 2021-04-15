@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class Game {
     static int n;
+    static int player_1_pawn;
+    static int player_2_pawn;
 
     public static void main(String[] args) {
         Game game = new Game();
@@ -17,6 +19,8 @@ public class Game {
                 System.out.println("Size out of range");
             } else {
                 //break out of loop and continue to create the board
+                player_1_pawn = (n*15)/10;
+                player_2_pawn = (n*15)/10;
                 break;
             }
         }
@@ -30,9 +34,11 @@ public class Game {
         board.fillPawns();
         board.displayBoard(board.getBoard());
         while (true) {
+            System.out.println("Player 1 Pawns: " + player_1_pawn);
+            System.out.println("Player 2 Pawns: " + player_2_pawn);
             playRound(player, board.getBoard()); // wat?
             board.displayBoard(board.getBoard());
-            if (checkForWinner()) {
+            if (checkForWinner(player_1_pawn, player_2_pawn)) {
                 isWinner = true;
                 break;
                 //player won
@@ -48,17 +54,18 @@ public class Game {
                 player = 1;
             }
         }
-        //printResult(player,isWinner)
+        printResult(player,isWinner);
     }
 
     int convertChar(char coordinateRow) {
-        return (int) coordinateRow -97;
+        return (int) coordinateRow - 97;
     }
 
     void movePawn(int x, int y, int player) {
         Board board = Board.getInstance(n);
         board.getBoard()[x][y] = new Pawn(player, x, y);
     }
+
     void removePawn(int x, int y) {
         Board board = Board.getInstance(n);
         board.getBoard()[x][y] = null;
@@ -71,15 +78,15 @@ public class Game {
         if (hit) {
             int enemyX = 0;
             int enemyY = 0;
-            if (prevPosY < nextPosY){
+            if (prevPosY < nextPosY) {
                 enemyY = prevPosY + 1;
             } else if (prevPosY > nextPosY) {
                 enemyY = prevPosY - 1;
             }
-            if(player==1){
-                enemyX = prevPosX +1;
-            } else if (player==2){
-                enemyX = prevPosX -1;
+            if (player == 1) {
+                enemyX = prevPosX + 1;
+            } else if (player == 2) {
+                enemyX = prevPosX - 1;
             }
             removePawn(enemyX, enemyY);
         }
@@ -99,10 +106,6 @@ public class Game {
         } else {
             changePosition(pawnPosition[0], pawnPosition[1], moveCoordinates[0], moveCoordinates[1], pawnPosition[2], false);
         }
-
-        //movePawn(moveCoordinates[0], moveCoordinates[1], coordinates[3]);
-        //removePawn()
-        //board.displayBoard(board);
     }
 
     int[] getCoordinates(int player, String request) {
@@ -112,7 +115,7 @@ public class Game {
         int y;
 
         while (true) {
-            System.out.print("Player "+ player + ": " + request + " first coordinate (eg.: a, b, or c...): ");
+            System.out.print("Player " + player + ": " + request + " first coordinate (eg.: a, b, or c...): ");
             temp_x = scanner.nextLine();
             if (temp_x.length() > 1) {
                 System.out.println("Row out of range");
@@ -134,7 +137,7 @@ public class Game {
 
             //ask user input *Checks(); *Checks if valid position from user and within board
         }
-        return new int[]{x, y-1, player};
+        return new int[]{x, y - 1, player};
     }
 
     void printResult(int player, boolean isWinner) {
@@ -149,16 +152,16 @@ public class Game {
         // cuurent pos is pawn & own
         Board board = Board.getInstance(n);
         if (board.getBoard()[pawnPosX][pawnPosY].getPlayer() == player && board.getBoard()[movePosX][movePosY] == null) {
-            if (player == 1){
-                if ((movePosY == pawnPosY - 1 || movePosY == pawnPosY +1) && movePosX == pawnPosX + 1) {
+            if (player == 1) {
+                if ((movePosY == pawnPosY - 1 || movePosY == pawnPosY + 1) && movePosX == pawnPosX + 1) {
                     return true;
-                } else if ((movePosY == pawnPosY - 2 || movePosY == pawnPosY +2) && movePosX == pawnPosX + 2){
+                } else if ((movePosY == pawnPosY - 2 || movePosY == pawnPosY + 2) && movePosX == pawnPosX + 2) {
                     return true;
                 }
-            } else if (player == 2){
-                if ((movePosY == pawnPosY - 1 || movePosY == pawnPosY +1) && movePosX == pawnPosX - 1) {
+            } else if (player == 2) {
+                if ((movePosY == pawnPosY - 1 || movePosY == pawnPosY + 1) && movePosX == pawnPosX - 1) {
                     return true;
-                } else if ((movePosY == pawnPosY - 2 || movePosY == pawnPosY +2) && movePosX == pawnPosX - 2){
+                } else if ((movePosY == pawnPosY - 2 || movePosY == pawnPosY + 2) && movePosX == pawnPosX - 2) {
                     return true;
                 }
             }
@@ -174,24 +177,31 @@ public class Game {
         Board board = Board.getInstance(n);
         int enemyX = 0;
         int enemyY = 0;
-        if (pawnPosY< movePosY){
+        if (pawnPosY < movePosY) {
             enemyY = pawnPosY + 1;
         } else if (pawnPosY > movePosY) {
             enemyY = pawnPosY - 1;
         }
         if (player == 1 && ((movePosY == pawnPosY - 2 || movePosY == pawnPosY + 2) && movePosX == pawnPosX + 2)) {
+            --player_2_pawn;
             enemyX = pawnPosX + 1;
             return board.getBoard()[enemyX][enemyY] != null && board.getBoard()[enemyX][enemyY].getPlayer() == 2;
-        } else if(player == 2 && ((movePosY == pawnPosY - 2 || movePosY == pawnPosY + 2) && movePosX == pawnPosX - 2)){
+        } else if (player == 2 && ((movePosY == pawnPosY - 2 || movePosY == pawnPosY + 2) && movePosX == pawnPosX - 2)) {
+            --player_1_pawn;
             enemyX = pawnPosX - 1;
             return board.getBoard()[enemyX][enemyY] != null && board.getBoard()[enemyX][enemyY].getPlayer() == 1;
         }
         return false;
 
     }
-    boolean checkForWinner() {
+
+    boolean checkForWinner(int player1, int player2) {
+        if (player1 == 0 || player2 == 0) {
+            return true;
+        }
         return false;
     }
+
     boolean checkForDraw() {
         return false;
     }
