@@ -48,12 +48,12 @@ public class Board {
 
 
     public void displayBoard(Pawn[][] board) {
-        String[] letters = {"   ","1  ","2  ","3  ","4  ","5  ","6  ","7  ","8  ","9 ","10 ","11 ","12 ","13 ","14 ","15 ","16 ","17 ","18 ","19 ","20  "};
+        String[] numbers = {"   ","1  ","2  ","3  ","4  ","5  ","6  ","7  ","8  ","9 ","10 ","11 ","12 ","13 ","14 ","15 ","16 ","17 ","18 ","19 ","20  "};
         for (int i =0; i<=1; i++) {
             System.out.println();
             for (int j = 0; j <= board.length; j++) {
                 if (i == 0) {
-                    System.out.print(letters[j]);
+                    System.out.print(numbers[j]);
                 }
             }
         }
@@ -82,9 +82,6 @@ public class Board {
                             System.out.print("███");
                         }
                     }
-                    //if (j > 8 && i == 0) {
-                    //  System.out.print(" ");
-                    // }
                 }
             }
             System.out.println();
